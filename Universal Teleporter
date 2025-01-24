@@ -1,0 +1,61 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local ScreenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+
+-- Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ Ñ€Ğ°Ğ¼ĞºĞ¸ Ğ´Ğ»Ñ Ğ¸Ğ½Ñ‚ĞµÑ€Ñ„ĞµĞ¹ÑĞ°
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 300, 0, 150)
+Frame.Position = UDim2.new(0.5, -200, 0.5, -80)
+Frame.BackgroundColor3 = Color3.fromRGB(128, 0, 128) -- Ğ¤Ğ¸Ğ¾Ğ»ĞµÑ‚Ğ¾Ğ²Ñ‹Ğ¹ Ñ†Ğ²ĞµÑ‚
+Frame.BackgroundTransparency = 0.10 -- ĞŸĞ¾Ğ»ÑƒĞ¿Ñ€Ğ¾Ğ·Ñ€Ğ°Ñ‡Ğ½Ğ¾ÑÑ‚ÑŒ
+Frame.Active = true
+Frame.Draggable = true
+Frame.BorderSizePixel = 0
+
+local UICorner = Instance.new("UICorner", Frame)
+UICorner.CornerRadius = UDim.new(0, 10)
+
+-- Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ Ñ‚ĞµĞºÑÑ‚Ğ¾Ğ²Ğ¾Ğ³Ğ¾ Ğ¿Ğ¾Ğ»Ñ
+local TextBox = Instance.new("TextBox", Frame)
+TextBox.Size = UDim2.new(1, -10, 0, 40)
+TextBox.Position = UDim2.new(0, 5, 0, 10)
+TextBox.PlaceholderText = "Teleport"
+TextBox.TextColor3 = Color3.new(1, 1, 1)
+
+-- Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ñ‚ĞµĞ»ĞµĞ¿Ğ¾Ñ€Ñ‚Ğ°Ñ†Ğ¸Ğ¸
+local Button = Instance.new("TextButton", Frame)
+Button.Size = UDim2.new(1, -10, 0, 40)
+Button.Position = UDim2.new(0, 5, 0, 60)
+Button.Text = "Teleport!"
+Button.TextColor3 = Color3.new(1, 1, 1)
+
+-- ĞšĞ½Ğ¾Ğ¿ĞºĞ° Ğ´Ğ»Ñ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚Ğ¸Ñ/Ğ·Ğ°ĞºÑ€Ñ‹Ñ‚Ğ¸Ñ Ğ¸Ğ½Ñ‚ĞµÑ€Ñ„ĞµĞ¹ÑĞ°
+local ToggleButton = Instance.new("TextButton", ScreenGui)
+ToggleButton.Size = UDim2.new(0, 150, 0, 60)
+ToggleButton.Position = UDim2.new(0.5, -50, 0.1, 0)
+ToggleButton.Text = "Mavis Hub Teleporter!"
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+
+-- Ğ¤ÑƒĞ½ĞºÑ†Ğ¸Ñ Ğ´Ğ»Ñ Ñ‚ĞµĞ»ĞµĞ¿Ğ¾Ñ€Ñ‚Ğ°Ñ†Ğ¸Ğ¸
+local function teleportToPlayer(playerName)
+    local targetPlayer = Players:FindFirstChild(playerName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+    else
+        warn("Teleporting")
+    end
+end
+
+-- ĞĞ±Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‡Ğ¸Ğº Ğ½Ğ°Ğ¶Ğ°Ñ‚Ğ¸Ñ ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ñ‚ĞµĞ»ĞµĞ¿Ğ¾Ñ€Ñ‚Ğ°Ñ†Ğ¸Ğ¸
+Button.MouseButton1Click:Connect(function()
+    local playerName = TextBox.Text
+    teleportToPlayer(playerName)
+end)
+
+-- ĞĞ±Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‡Ğ¸Ğº Ğ½Ğ°Ğ¶Ğ°Ñ‚Ğ¸Ñ ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚Ğ¸Ñ/Ğ·Ğ°ĞºÑ€Ñ‹Ñ‚Ğ¸Ñ
+ToggleButton.MouseButton1Click:Connect(function()
+    Frame.Visible = not Frame.Visible
+end)
+
+Frame.Visible = false -- Ğ¡ĞºÑ€Ñ‹Ğ²Ğ°ĞµĞ¼ Ğ¸Ğ½Ñ‚ĞµÑ€Ñ„ĞµĞ¹Ñ Ğ¿Ğ¾ ÑƒĞ¼Ğ¾Ğ»Ñ‡Ğ°Ğ½Ğ¸Ñ
+ScreenGui.ResetResetOnSpawn = false -- Ğ˜Ğ½Ñ‚ĞµÑ€Ñ„ScreenGui.ResetResetOnSpawn = false -- Ğ˜Ğ½Ñ‚Ğµ
